@@ -1,0 +1,2 @@
+# PipelineSharedLibrary
+Shared Library example
