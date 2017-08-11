@@ -1,6 +1,6 @@
 package org.foo
 import jenkins.model.Jenkins
-import hudson.model.Job<JobT,RunT>
+import hudson.model.Job
 class BuildResult implements Serializable{
   def CheckForSuccess(JobName){
     def job=Jenkins.instance.getItem(JobName)
