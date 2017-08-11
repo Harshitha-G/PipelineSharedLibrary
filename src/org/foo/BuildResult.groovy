@@ -1,5 +1,6 @@
 package org.foo
 import jenkins.model.Jenkins
+import hudson.model.Job<JobT,RunT>
 class BuildResult implements Serializable{
   def CheckForSuccess(JobName){
     def job=Jenkins.instance.getItem(JobName)
@@ -9,3 +10,4 @@ class BuildResult implements Serializable{
       return true
     }
   }
+}
