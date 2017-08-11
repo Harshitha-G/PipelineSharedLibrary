@@ -2,6 +2,6 @@
 package org.foo;
 class Zot implements Serializable{
   def checkOutFrom(repo) {
-    git url: "git@github.com:Harshitha-G/${repo}"
+    git url: "git@github.com:jenkinsci/${repo}"
   }
 }
