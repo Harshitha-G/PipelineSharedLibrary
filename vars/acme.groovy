@@ -8,6 +8,6 @@ class acme implements Serializable {
         name
     }
     def caution(message) {
-        echo 'Hello, "${name}"! CAUTION: "${message}"'
+        println "Hello, ${name}! CAUTION: ${message}"
     }
 }
