@@ -9,4 +9,4 @@ private String name
     def caution(message) {
         echo "Hello, ${name}! CAUTION: ${message}"
     }
-}
+
