@@ -1,0 +1,19 @@
+@Library('PipelineSharedLibrary@master') import org.foo.BuildResult
+stage('Job Input'){
+    node{
+        properties(
+            [parameters(
+                [string(defaultValue: 'DslPractice Pipeline', description: '', name: 'JobName')]
+                )
+            ]
+        )
+    }
+}
+stage('Notify'){
+    node{
+        def job = new BuildResult()
+        def result=job.CheckForSuccess("${params.JobName}")
+        if(result==true)
+            println "Job '${params.JobName}' is successful "
+    }
+}
