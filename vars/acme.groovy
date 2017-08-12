@@ -1,4 +1,5 @@
 // vars/acme.groovy
+import groovy.json.JsonSlurper
 class acme implements Serializable {
     private String name
     def setName(value) {
