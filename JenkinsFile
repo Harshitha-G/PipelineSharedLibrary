@@ -1,19 +1,43 @@
 @Library('PipelineSharedLibrary@master') import org.foo.BuildResult
 stage('Job Input'){
     node{
-        properties(
-            [parameters(
-                [string(defaultValue: 'DslPractice Pipeline', description: '', name: 'JobName')]
-                )
-            ]
-        )
+        //timeout(1) {
+            properties(
+                [parameters(
+                    [string(defaultValue: 'DslPractice Pipeline', description: '', name: 'JobName')]
+                )]
+            )
+        //}
+        
     }
 }
 stage('Notify'){
     node{
         def job = new BuildResult()
         def result=job.CheckForSuccess("${params.JobName}")
-        if(result==true)
+        if(result==true){
             println "Job '${params.JobName}' is successful "
+            emailext body: 'Job "${params.JobName}" last build was successful and the previous build failed.',
+            subject: '"${params.JobName}" build success', 
+            to: 'Harshithagsinghvi@gmail.com'
+        }
+    }
+}
+stage('wait for reply'){
+    node{
+        try {
+            timeout(1) {
+                emailext body: "Please go to ${BUILD_URL} and verify the build",
+                subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input", 
+                to: 'Harshithagsinghvi@gmail.com'
+                input message: 'continue or abort?'
+            }
+        } catch (err) {
+            echo "Caught: ${err}"
+            currentBuild.result = 'FAILURE'
+            emailext body: "Please go to ${JOB_URL} and rebuild and verify the build before time out",
+            subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) failed", 
+            to: 'Harshithagsinghvi@gmail.com'
+        }
     }
 }
